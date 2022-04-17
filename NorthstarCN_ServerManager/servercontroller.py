@@ -6,6 +6,7 @@ import loghandler
 import uuid
 GameServers = [] # Game server list we need to use for tracking each server
 
+
 class GameServerSettings:
     def __init__(self,name,port,authport,profile):
         self.name = name
@@ -15,13 +16,14 @@ class GameServerSettings:
         
 class GameServer:
     def __init__(self,uid,status,settings):
-        self.id = uid
+        self.uid = uid
         self.status = status
         
-        if settings.__class__.__name__ == GameServerSettings:
+        if settings.__class__.__name__ == "GameServerSettings":
             self.settings = settings
             GameServers.append(self)
         else:
+            #print("Received GameServerSettings Classname: {}",settings.__class__.__name__)
             loghandler.printerror("GameServer settings is not a valid GameServerSettings object.")
            
 
@@ -32,20 +34,21 @@ class GameServer:
     # 0 = Stopped, 1 = Starting, 2 = Running
     def isRunning(self):
         return self.status == 2
-    def stop(self):
+    def Stop(self):
         dockercontroller.StopInstance(self)
-    def start(self):
+    def Start(self):
         dockercontroller.StartInstance(self)
         
     
         
-
+def GetServers():
+    return GameServers
 
 
 
 def GetGameServer(uid):
     for server in GameServers:
-        if server.id == uid:
+        if server.uid == uid:
             return server
     return None
 
@@ -75,12 +78,12 @@ def GetGameServerByProfile(profile):
 # remove all servers
 def RemoveAllServers():
     for server in GameServers:
-        server.stop()
+        server.Stop()
         GameServers.remove(server)
         
 def StartAllServers():
     for server in GameServers:
-        server.start()
+        server.Start()
 def GetServerByIndex(idx):
     return GameServers[idx]
 

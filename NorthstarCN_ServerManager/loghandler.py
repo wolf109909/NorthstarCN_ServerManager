@@ -5,7 +5,7 @@ debuglogging = True
 errorlogging = True
 
 def printerror(message):
-    if errlogging:
+    if errorlogging:
         print("[ERROR]: " + message)
 
 def printdebug(message):

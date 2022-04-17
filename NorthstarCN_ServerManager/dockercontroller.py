@@ -4,9 +4,18 @@ Server Launching/Stopping module for docker environment
 import os
 import loghandler
 import servercontroller
+import platform
+
 GameServerBaseFileDirectory = "/home/titanfall2/"
+def RunShell(command):
+    if platform.system() != "Linux":
+        print(command)
+    else:
+        os.system(command)
+
+    
 def ParseStartupCommand(GameServer):
-    if GameServer.__class__.__name__ == GameServer:
+    if GameServer.__class__.__name__ == "GameServer":
         containerName = str(GameServer.uid)
         containerNameArg = f"--name {containerName}"
         loghandler.printinfo("Parsing Startup Command")
@@ -14,7 +23,7 @@ def ParseStartupCommand(GameServer):
         serverPort = str(GameServer.settings.port)
         serverAuthport = str(GameServer.settings.authport)
         serverProfile = str(GameServer.settings.profile)
-        profileArgString = f"--env NS_EXTRA_ARGUMENTS={serverProfile}"
+        profileArgString = f"--env NS_EXTRA_ARGUMENTS=\"-profile {serverProfile}\""
         serverStartupCommand = f"docker run --rm --interactive --pull always {containerNameArg} --publish {serverAuthport}:{serverAuthport}/tcp --publish {serverPort}:{serverPort}/udp --mount \"type=bind,source={GameServerBaseFileDirectory},target=/mnt/titanfall,readonly\" --env NS_SERVER_NAME=\"{serverName}\" {profileArgString} ghcr.io/pg9182/northstar-dedicated:1-tf2.0.11.0"
         return serverStartupCommand
     else:
@@ -34,7 +43,7 @@ def StartInstance(GameServer):
     else:
         loghandler.printinfo("Successfully Parsed Startup Command")
         if StartupCommand != None:
-            os.system(StartupCommand)
+            RunShell(StartupCommand)
             GameServer.status = 1
         else:
             loghandler.printerror("Invalid Startup Command!")
@@ -47,7 +56,7 @@ def StopInstance(GameServer):
     try:
         containerName = str(GameServer.uid)
         serverStopCommand = f"docker stop {containerName}"
-        os.system(serverStopCommand)
+        RunShell(serverStopCommand)
         GameServer.status = 0
     except:
         loghandler.printerror("Error occurred while trying to stop server")

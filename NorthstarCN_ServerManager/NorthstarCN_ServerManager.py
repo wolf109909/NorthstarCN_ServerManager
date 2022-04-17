@@ -10,9 +10,9 @@ from cmd import Cmd
 class MainShellLoop(Cmd):
    def do_runserver(self, inp):
         print("Run Server:"+inp)
-        return True
+        
  
-   def do_createserver(self, inp):
+   def do_createserver(self,inp):
         print("Adding '{}'".format(inp))
         name = input("Specify Server name:")
         port = input("Specify Server port:")
@@ -22,25 +22,34 @@ class MainShellLoop(Cmd):
         settings = servercontroller.GameServerSettings(name,port,authport,profile)
         servercontroller.GameServer(uid,0,settings)
         
-        return True
+        
    def do_startserver(self,inp):
        if inp == None:
            print("No server specified")
-           return True
+           
        print("Starting Server:"+inp)
-       servercontroller
-       return True
+       server = servercontroller.GetServerByIndex(int(inp))
+       if server == None:
+           print("Server not found")
+       else:
+           server.Start()
+       
    def do_stopserver(self,inp):
        print("Stopping Server:"+inp)
-       return True
-   def do_listservers(self):
+       server = servercontroller.GetServerByIndex(int(inp))
+       if server == None:
+           print("Server not found")
+       else:
+           server.Stop()
+   def do_listservers(self,inp):
        print("Servers Available:")
        for server in servercontroller.GetServers():
            idx = servercontroller.GetServerIndex(server)
+           uid = server.uid
            name = server.settings.name
            port = server.settings.port
            authport = server.settings.authport
            profile = server.settings.profile
-           print(f"INDEX:{idx} || NAME:{name} || PORT:{port} || AUTHPORT:{authport} || PROFILE:{profile}")
-       return True
+           print(f"INDEX:{idx} || UID:{uid} || NAME:{name} || PORT:{port} || AUTHPORT:{authport} || PROFILE:{profile}")
+       
 MainShellLoop().cmdloop()
