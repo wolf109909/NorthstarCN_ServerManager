@@ -3,7 +3,8 @@ Server Launching/Stopping module for docker environment
 """
 import os
 import loghandler
-import servercontroller
+import servercontroller 
+import screencontroller
 import platform
 
 GameServerBaseFileDirectory = "/home/titanfall2/"
@@ -43,11 +44,12 @@ def StartInstance(GameServer):
     else:
         loghandler.printinfo("Successfully Parsed Startup Command")
         if StartupCommand != None:
-            RunShell(StartupCommand)
+            NewScreenSubProcess(GameServer.uid,StartupCommand)
             GameServer.status = 1
         else:
             loghandler.printerror("Invalid Startup Command!")
             GameServer.status = 0
+            
 def StopInstance(GameServer):
     if GameServer.status == 0:
         loghandler.printinfo("Server is not running!")
