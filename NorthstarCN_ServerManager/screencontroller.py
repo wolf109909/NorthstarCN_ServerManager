@@ -13,9 +13,10 @@ def NewScreenSubProcess(serveruid,startupcommand):
     servercontroller.RunShell(f"tmux send-keys -t {serveruid} '{startupcommand}' C-m")
     
 def KillScreenSubProcess(serveruid):
-    loghandler.printinfo(f"Killing Docker container:{serveruid}")
-    servercontroller.RunShell(f"docker stop {serveruid}")    
     loghandler.printinfo(f"Killing tmux session:{serveruid}")
     servercontroller.RunShell(f"tmux kill-session -t {serveruid}")
+    loghandler.printinfo(f"Killing Docker container:{serveruid}")
+    servercontroller.RunShell(f"docker stop {serveruid}")    
+
     
     
