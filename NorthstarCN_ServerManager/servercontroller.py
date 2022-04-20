@@ -97,4 +97,4 @@ def GetServerIndex(server):
     return GameServers.index(server)
 
 def GenerateUid():
-    return "".join(str(ord(x)) for x in str(uuid.uuid4()))
+    return "".join(str(ord(x)) for x in str(uuid.uuid4()))[:8]
