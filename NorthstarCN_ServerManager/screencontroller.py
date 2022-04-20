@@ -6,11 +6,11 @@ Idea: each server is binded to specific screen session with the same random dock
 import subprocess
 import platform
 import os
-def RunShell(command):
-    if platform.system() != "Linux":
-        print(command)
-    else:
-        os.system(command)
+import servercontroller
 def NewScreenSubProcess(serveruid,startupcommand):
-    RunShell(f"tmux new-session -d -n {serveruid}")
-    RunShell(f"tmux send-keys -t {serveruid} '{startupcommand}' C-m")
+    servercontroller.RunShell(f"tmux new-session -d -n {serveruid}")
+    servercontroller.RunShell(f"tmux send-keys -t {serveruid} '{startupcommand}' C-m")
+def KillScreenSubProcess(serveruid):
+    servercontroller.RunShell(f"tmux kill-session -t {serveruid}")
+    servercontroller.RunShell(f"docker stop {serveruid}")
+    

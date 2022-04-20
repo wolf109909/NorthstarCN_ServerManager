@@ -3,9 +3,14 @@ Core Server Definition and Control logics
 """
 import dockercontroller
 import loghandler
+import platform
 import uuid
 GameServers = [] # Game server list we need to use for tracking each server
-
+def RunShell(command):
+    if platform.system() != "Linux":
+        print(command)
+    else:
+        os.system(command)
 
 class GameServerSettings:
     def __init__(self,name,port,authport,profile):

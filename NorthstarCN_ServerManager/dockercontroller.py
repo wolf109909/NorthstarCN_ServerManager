@@ -50,9 +50,7 @@ def StopInstance(GameServer):
         return
     loghandler.printinfo("Stopping Server:" + GameServer.settings.name)
     try:
-        containerName = str(GameServer.uid)
-        serverStopCommand = f"docker stop {containerName}"
-        RunShell(serverStopCommand)
+        servercontroller.KillScreenSubProcess(GameServer.uid)
         GameServer.status = 0
     except:
         loghandler.printerror("Error occurred while trying to stop server")
