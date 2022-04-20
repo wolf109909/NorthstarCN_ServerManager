@@ -13,4 +13,4 @@ def RunShell(command):
         os.system(command)
 def NewScreenSubProcess(serveruid,startupcommand):
     RunShell(f"tmux new-session -d -n {serveruid}")
-    RunShell(f"tmux send-keys -t {serveruid} '{startupcommand}' \n ")
+    Runshell(f"tmux send-keys -t {serveruid} '{startupcommand}' C-m")
