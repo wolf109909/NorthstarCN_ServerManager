@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="dockercontroller.py" />
     <Compile Include="loghandler.py" />
+    <Compile Include="screencontroller.py" />
     <Compile Include="servercontroller.py" />
     <Compile Include="NorthstarCN_ServerManager.py" />
   </ItemGroup>

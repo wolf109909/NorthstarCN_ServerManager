@@ -50,7 +50,7 @@ def StopInstance(GameServer):
         return
     loghandler.printinfo("Stopping Server:" + GameServer.settings.name)
     try:
-        servercontroller.KillScreenSubProcess(GameServer.uid)
+        screencontroller.KillScreenSubProcess(GameServer.uid)
         GameServer.status = 0
     except:
         loghandler.printerror("Error occurred while trying to stop server")
