@@ -7,7 +7,7 @@ import servercontroller
 import screencontroller
 import platform
 
-GameServerBaseFileDirectory = "/home/titanfall2/"
+GameServerBaseFileDirectory = "/root/tf2/content"
 def RunShell(command):
     if platform.system() != "Linux":
         print(command)
