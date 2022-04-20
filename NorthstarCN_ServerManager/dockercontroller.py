@@ -44,7 +44,7 @@ def StartInstance(GameServer):
     else:
         loghandler.printinfo("Successfully Parsed Startup Command")
         if StartupCommand != None:
-            NewScreenSubProcess(GameServer.uid,StartupCommand)
+            screencontroller.NewScreenSubProcess(GameServer.uid,StartupCommand)
             GameServer.status = 1
         else:
             loghandler.printerror("Invalid Startup Command!")
