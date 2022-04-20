@@ -4,6 +4,7 @@ Idea: each server is binded to specific screen session with the same random dock
 """
 # I moved to tmux after realising screen is kinda bad for this
 import subprocess
+import platform
 import os
 def RunShell(command):
     if platform.system() != "Linux":
