@@ -4,4 +4,4 @@ Idea: each server is binded to specific screen session with the same random dock
 """
 import subprocess
 def NewScreenSubProcess(serveruid,startupcommand):
-    subprocess.run(["screen", "-S", serveruid , startupcommand])
+    subprocess.run(["screen", "-S", serveruid , startupcommand],shell = True)
