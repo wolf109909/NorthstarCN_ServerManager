@@ -6,14 +6,8 @@ import loghandler
 import servercontroller 
 import screencontroller
 import platform
-
+import subprocess
 GameServerBaseFileDirectory = "/root/tf2/content"
-def RunShell(command):
-    if platform.system() != "Linux":
-        print(command)
-    else:
-        os.system(command)
-
     
 def ParseStartupCommand(GameServer):
     if GameServer.__class__.__name__ == "GameServer":
